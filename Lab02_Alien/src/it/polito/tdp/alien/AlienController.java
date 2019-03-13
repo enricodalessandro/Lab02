@@ -29,7 +29,7 @@ public class AlienController {
     private Button btnTranslate;
     @FXML
     private Button btnReset;
-        
+    private Dizionario d=new Dizionario();
     
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -43,12 +43,38 @@ public class AlienController {
     
     @FXML
     void doTranslate(ActionEvent event) {
+    	String intera=txtWord.getText();
+    	if (!intera.contains(" ")&& intera.matches("[a-zA-Z]*"))
+    	{
+    		String s=d.getTraduzione(intera);
+			txtResult.appendText("La traduzione trovata per la parola"+intera+"  e' :"+s+"\n");
+			txtWord.clear();
+    	}
+    	String p[] = intera.split(" ");
+    	String parola=p[0];
+    	String traduzione=p[1];
+    	if (p[0].matches("[a-zA-Z]*")&& p[1].matches("[a-zA-Z]*")) 
+    	{
+    		
+    			Word temp= new Word (parola,traduzione);
+    			if (p.length==2)
+    				{
+    				d.addParola(temp);
+    				txtWord.clear();
+    				txtResult.appendText("Parola inserita correttamente\n");
+    				}
+    			
+    			
+    	}
+    	
+    	
     	    	
     }
     
     
     @FXML
     void doReset(ActionEvent event) {
+    	txtResult.clear();
 
     }
     
